@@ -15,7 +15,8 @@ model User {
   updatedAt DateTime @updatedAt
 
   password Password?
-  notes    Note[]
+
+  orders Order?
 }
 
 model Password {
@@ -25,14 +26,30 @@ model Password {
   userId String @unique
 }
 
-model Note {
-  id    String @id @default(cuid())
-  title String
-  body  String
+model Portfolio {
+  
+  
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+}
 
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId String
+model BuyOrder {
+  
+  symbol String @id
+  
+  orderType String //market or limit, if limit take max price to buy
+}
+
+model SellOrder {
+  
+  symbol String @id
+  
+  orderType String //market or limit, if limit take max price to sell
+
+}
+
+model Stock {
+
+  name String @unique
+  symbol String @id
+
 }
