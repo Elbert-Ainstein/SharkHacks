@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./app/**/*.{ts,tsx,jsx,js}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        montserrat: ["Questrial", "monospace"]
+      }
+    },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };
