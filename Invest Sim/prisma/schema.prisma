@@ -12,7 +12,10 @@ model User {
   email        String   @unique
   portfolioID1 String   @unique @default(cuid())
   createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+
+  accountValue Int @unique
+  buyingPower  Int @unique
+  cash         Int @unique
 
   portfolioID Portfolio?
   password    Password?
@@ -31,6 +34,12 @@ model Password {
 model Portfolio {
   user        User   @relation(fields: [portfolioID], references: [portfolioID1], onDelete: Cascade, onUpdate: Cascade)
   portfolioID String @unique
+  held        Held   @default(STOCKS)
+}
+
+enum Held {
+  STOCKS
+  QUANTITY
 }
 
 model BuyOrders {
