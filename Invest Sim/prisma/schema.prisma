@@ -16,7 +16,7 @@ model User {
 
   password Password?
 
-  orders Order?
+  buyOrders BuyOrder?
 }
 
 model Password {
@@ -24,32 +24,4 @@ model Password {
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId String @unique
-}
-
-model Portfolio {
-  
-  
-
-}
-
-model BuyOrder {
-  
-  symbol String @id
-  
-  orderType String //market or limit, if limit take max price to buy
-}
-
-model SellOrder {
-  
-  symbol String @id
-  
-  orderType String //market or limit, if limit take max price to sell
-
-}
-
-model Stock {
-
-  name String @unique
-  symbol String @id
-
 }
