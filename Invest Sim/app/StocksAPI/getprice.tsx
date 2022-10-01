@@ -8,19 +8,12 @@ const api_key = finnhub.ApiClient.instance.authentications['api_key'];
 api_key.apiKey = F_API
 const finnhubClient = new finnhub.DefaultApi()
 
-export async function getPrice(symbol : any) {
-  let promise = new Promise((resolve, reject) => {
-    finnhubClient.quote(symbol, (error : any, data : any, response : any) => {
-      console.log(data);
-      if (data!=null) {
-        resolve(data.c);
+export function getPrice(symbol : any) {
+  
+      finnhubClient.quote(symbol, (error : any, data : any, response : any) => {
+        console.log(data.c);
         return data.c;
-      }
-      if (error) {
-        reject(error);
-        return null;
-      }
-
+      
     });    
-  });
-} 
+  };
+

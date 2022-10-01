@@ -34,6 +34,7 @@
     "/postgres-data"
   ],
   "dependencies": {
+    "@alpacahq/alpaca-trade-api": "^2.16.1",
     "@prisma/client": "^4.3.1",
     "@remix-run/express": "^1.7.2",
     "@remix-run/node": "^1.7.2",
@@ -67,6 +68,7 @@
     "@types/express": "^4.17.14",
     "@types/morgan": "^1.9.3",
     "@types/node": "^18.7.18",
+    "@types/node-fetch": "^2.6.2",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.1.0",
