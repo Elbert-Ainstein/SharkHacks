@@ -7,7 +7,7 @@ import { marketOrder } from "~/StocksAPI/marketorder";
     const item = prompt("Search for a stock");
     const quantity = prompt("How many shares?");
     // marketOrderPrice(String(item), Number(quantity));
-    marketOrder();
+    // marketOrder();
  }
 
  const Search: React.FC = () => {
