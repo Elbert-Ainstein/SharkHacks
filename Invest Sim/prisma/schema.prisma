@@ -85,9 +85,9 @@ model LimitOrder {
 }
 
 model Held{
-  name     String @unique
-  quantity Int    @unique
-
-  Portfolio Portfolio? @relation(fields: [portfolioID], references: [portfolioID])
-  portfolioID String?
+  Portfolio Portfolio? @relation(fields: [portfolioID], references: [portfolioID]) 
+  name     String 
+  quantity Int     
+  portfolioID String @id
+  @@unique([name, portfolioID])
 }
