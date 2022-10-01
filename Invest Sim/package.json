@@ -51,6 +51,8 @@
     "morgan": "^1.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "request": "^2.88.2",
+    "requests": "^0.3.0",
     "tiny-invariant": "^1.2.0"
   },
   "devDependencies": {

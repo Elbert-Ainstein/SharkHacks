@@ -8,14 +8,14 @@ generator client {
 }
 
 model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
-  portfolioID1 String   @unique @default(cuid())
-  createdAt    DateTime @default(now())
+  id           String    @id @default(cuid())
+  email        String    @unique
+  portfolioID1 String    @unique @default(cuid())
+  createdAt    DateTime? @default(now())
 
-  accountValue Int @unique
-  buyingPower  Int @unique
-  cash         Int @unique 
+  accountValue Int
+  buyingPower  Int
+  cash         Int
 
   portfolioID Portfolio?
   password    Password?
@@ -84,10 +84,11 @@ model LimitOrder {
   SellOrders SellOrders[]
 }
 
-model Held{
-  name     String @unique
-  quantity Int    @unique
+model Held {
+  Portfolio   Portfolio? @relation(fields: [portfolioID], references: [portfolioID])
+  name        String?    @unique
+  quantity    Int?
+  portfolioID String     @id
 
-  Portfolio Portfolio? @relation(fields: [portfolioID], references: [portfolioID])
-  portfolioID String?
+  @@unique([name, portfolioID])
 }

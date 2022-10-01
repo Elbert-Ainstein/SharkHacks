@@ -1,18 +1,19 @@
- import { getPrice } from "~/StocksAPI/getprice"
- import React from "react";
-import { marketOrderPrice } from "~/StocksAPI/marketorderprice";
-import { marketOrder } from "~/StocksAPI/marketorder";
-  function searching() {
-    
-    const item = prompt("Search for a stock");
-    const quantity = prompt("How many shares?");
-    // marketOrderPrice(String(item), Number(quantity));
-    // marketOrder();
- }
+
+import React from "react";
+import { getPrice } from "~/StocksAPI/marketorderprice";
+import { passPrice } from "~/StocksAPI/marketorderprice";
+import {getUserId} from "~/session.server"
+import { request } from "http";
+// import { marketOrder } from "~/StocksAPI/marketorder";
+  async function test() {
+    console.log("clicked")
+    let a=getPrice();
+    console.log("classic " + a);
+  }
 
  const Search: React.FC = () => {
     return (
-        <button onClick={searching}>Start Search</button>
+        <button onClick={test}>Start Search</button>
     )
 }
 

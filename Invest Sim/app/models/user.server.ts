@@ -23,6 +23,9 @@ export async function createUser(email: User["email"], password: string) {
   return prisma.user.create({
     data: {
       email,
+      accountValue: 100000,
+      buyingPower: 100000,
+      cash: 100000,
       password: {
         create: {
           hash: hashedPassword,
