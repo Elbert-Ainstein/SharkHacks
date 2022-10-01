@@ -15,7 +15,7 @@ model User {
 
   accountValue Int @unique
   buyingPower  Int @unique
-  cash         Int @unique
+  cash         Int @unique 
 
   portfolioID Portfolio?
   password    Password?
@@ -34,13 +34,13 @@ model Password {
 model Portfolio {
   user        User   @relation(fields: [portfolioID], references: [portfolioID1], onDelete: Cascade, onUpdate: Cascade)
   portfolioID String @unique
-  held        Held   @default(STOCKS)
+  held        Held[]
 }
 
-enum Held {
-  STOCKS
-  QUANTITY
-}
+// enum Held {
+//   STOCKS
+//   QUANTITY
+// }
 
 model BuyOrders {
   name     String @unique
@@ -82,4 +82,12 @@ model LimitOrder {
   quantity   Int          @unique
   BuyOrders  BuyOrders[]
   SellOrders SellOrders[]
+}
+
+model Held{
+  name     String @unique
+  quantity Int    @unique
+
+  Portfolio Portfolio? @relation(fields: [portfolioID], references: [portfolioID])
+  portfolioID String?
 }

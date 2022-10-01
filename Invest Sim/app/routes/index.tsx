@@ -4,6 +4,7 @@ import { getPrice } from "~/StocksAPI/getprice";
 import Holdings from "~/components/holdings";
 
 import { useOptionalUser } from "~/utils";
+import Search from "~/components/search";
 
 export default function Index() {
   const user = useOptionalUser();
@@ -46,6 +47,7 @@ export default function Index() {
         </div>
       </div>
       <Holdings />
+      <Search />
     </main>
   );
 }
