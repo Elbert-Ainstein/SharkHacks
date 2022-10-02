@@ -76,3 +76,16 @@ export async function marketOrder(userID: string, symbol: string, quantity: numb
 
 
 
+
+export function marketOrder1(userID: string, symbol: string, quantity: number) {
+    const total = marketOrderPrice("AAPL", 10);
+    console.log("total is " + total + "from market orderrr");
+    const user = prisma.user.findUnique({
+        where: {
+            id: userID,
+        },
+    });
+    const portfolio = prisma.u
+    });
+}
+

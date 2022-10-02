@@ -75,6 +75,7 @@ model LimitOrder {
   SellOrders SellOrders[]
 }
 
+
 model Held {
   name        String?   @unique
   quantity    Int?
@@ -83,3 +84,12 @@ model Held {
 
   @@unique([name, portfolioID])
 }
+=======
+model Held{
+  Portfolio Portfolio? @relation(fields: [portfolioID], references: [portfolioID]) 
+  name     String 
+  quantity Int     
+  portfolioID String @id
+  @@unique([name, portfolioID])
+}
+
