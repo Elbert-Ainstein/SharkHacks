@@ -1,0 +1,96 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id String [pk]
+  email String [unique, not null]
+  createdAt DateTime [default: `now()`]
+  accountValue Int [not null]
+  buyingPower Int [not null]
+  cash Int [not null]
+  portfolioID1 String [unique, not null]
+  buyOrders BuyOrders [not null]
+  password Password
+  portfolioID Portfolio
+  sellOrders SellOrders [not null]
+}
+
+Table Password {
+  hash String [not null]
+  userId String [unique, not null]
+  user User [not null]
+}
+
+Table Portfolio {
+  portfolioID String [unique, not null]
+  user User [not null]
+  held Held
+}
+
+Table BuyOrders {
+  name String [unique, not null]
+  quantity Int [unique, not null]
+  userId String
+  marketOrderPrice Int
+  limitOrderMaxPrice Int
+  marketOrderQuantity Int
+  limitOrder LimitOrder
+  marketOrder MarketOrder
+  User User
+}
+
+Table SellOrders {
+  name String [unique, not null]
+  quantity Int [unique, not null]
+  userId String
+  marketOrderPrice Int
+  limitOrderMaxPrice Int
+  marketOrderQuantity Int
+  limitOrder LimitOrder
+  marketOrder MarketOrder
+  User User
+}
+
+Table MarketOrder {
+  quantity Int [unique, not null]
+  BuyOrders BuyOrders [not null]
+  SellOrders SellOrders [not null]
+}
+
+Table LimitOrder {
+  maxPrice Int [unique, not null]
+  minPrice Int [unique, not null]
+  quantity Int [unique, not null]
+  BuyOrders BuyOrders [not null]
+  SellOrders SellOrders [not null]
+}
+
+Table Held {
+  name String [unique]
+  quantity Int
+  portfolioID String [pk]
+  Portfolio Portfolio [not null]
+
+  indexes {
+    (name, portfolioID) [unique]
+  }
+}
+
+Ref: Password.userId - User.id [delete: Cascade]
+
+Ref: Portfolio.portfolioID - User.portfolioID1 [delete: Cascade]
+
+Ref: BuyOrders.limitOrderMaxPrice > LimitOrder.maxPrice
+
+Ref: BuyOrders.marketOrderQuantity > MarketOrder.quantity
+
+Ref: BuyOrders.userId > User.id
+
+Ref: SellOrders.limitOrderMaxPrice > LimitOrder.maxPrice
+
+Ref: SellOrders.marketOrderQuantity > MarketOrder.quantity
+
+Ref: SellOrders.userId > User.id
+
+Ref: Held.portfolioID - Portfolio.portfolioID
