@@ -1,73 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
 
 model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
-  portfolioID1 String   @unique @default(cuid())
-  createdAt    DateTime @default(now())
-
-  accountValue Int @unique
-  buyingPower  Int @unique
-  cash         Int @unique 
-
-  portfolioID Portfolio?
-  password    Password?
-
-  buyOrders  BuyOrders[]
-  sellOrders SellOrders[]
+  id           String       @id @default(cuid())
+  email        String       @unique
+  createdAt    DateTime?    @default(now())
+  accountValue Int
+  buyingPower  Int
+  cash         Int
+  portfolioID1 String       @unique @default(cuid())
+  buyOrders    BuyOrders[]
+  password     Password?
+  portfolioID  Portfolio?
+  sellOrders   SellOrders[]
 }
 
 model Password {
-  hash String
-
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  hash   String
   userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Portfolio {
-  user        User   @relation(fields: [portfolioID], references: [portfolioID1], onDelete: Cascade, onUpdate: Cascade)
   portfolioID String @unique
-  held        Held[]
+  user        User   @relation(fields: [portfolioID], references: [portfolioID1], onDelete: Cascade)
+  held        Held?
 }
 
-// enum Held {
-//   STOCKS
-//   QUANTITY
-// }
-
 model BuyOrders {
-  name     String @unique
-  quantity Int    @unique
-
-  User   User?   @relation(fields: [userId], references: [id])
-  userId String?
-
-  marketOrder         MarketOrder? @relation(fields: [marketOrderQuantity], references: [quantity])
-  limitOrder          LimitOrder?  @relation(fields: [limitOrderMaxPrice], references: [maxPrice])
+  name                String       @unique
+  quantity            Int          @unique
+  userId              String?
   marketOrderPrice    Int?
   limitOrderMaxPrice  Int?
   marketOrderQuantity Int?
+  limitOrder          LimitOrder?  @relation(fields: [limitOrderMaxPrice], references: [maxPrice])
+  marketOrder         MarketOrder? @relation(fields: [marketOrderQuantity], references: [quantity])
+  User                User?        @relation(fields: [userId], references: [id])
 }
 
 model SellOrders {
-  name     String @unique
-  quantity Int    @unique
-
-  User   User?   @relation(fields: [userId], references: [id])
-  userId String?
-
-  marketOrder         MarketOrder? @relation(fields: [marketOrderQuantity], references: [quantity])
-  limitOrder          LimitOrder?  @relation(fields: [limitOrderMaxPrice], references: [maxPrice])
+  name                String       @unique
+  quantity            Int          @unique
+  userId              String?
   marketOrderPrice    Int?
   limitOrderMaxPrice  Int?
   marketOrderQuantity Int?
+  limitOrder          LimitOrder?  @relation(fields: [limitOrderMaxPrice], references: [maxPrice])
+  marketOrder         MarketOrder? @relation(fields: [marketOrderQuantity], references: [quantity])
+  User                User?        @relation(fields: [userId], references: [id])
 }
 
 model MarketOrder {
@@ -84,6 +75,16 @@ model LimitOrder {
   SellOrders SellOrders[]
 }
 
+
+model Held {
+  name        String?   @unique
+  quantity    Int?
+  portfolioID String    @id
+  Portfolio   Portfolio @relation(fields: [portfolioID], references: [portfolioID])
+
+  @@unique([name, portfolioID])
+}
+=======
 model Held{
   Portfolio Portfolio? @relation(fields: [portfolioID], references: [portfolioID]) 
   name     String 
@@ -91,3 +92,4 @@ model Held{
   portfolioID String @id
   @@unique([name, portfolioID])
 }
+

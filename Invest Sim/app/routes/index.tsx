@@ -47,7 +47,7 @@ export default function Index() {
         </div>
       </div>
       <Holdings />
-      <Search />
+      <Search/>
     </main>
   );
 }
